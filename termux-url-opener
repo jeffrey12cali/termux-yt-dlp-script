@@ -1,0 +1,10 @@
+#!/bin/bash
+url=$1
+echo "Select 1 for video, 2 for audio"
+read choice
+if [ "$choice" == "1" ]
+	then
+		yt-dlp -f b -o 'storage/downloads/%(extractor)s/%(uploader)s - %(title).200s.%(ext)s' --use-postprocessor FFmpegCopyStream --ppa CopyStream:"-c:v libx264 -c:a aac -f mp4" $url
+	else
+		yt-dlp --extract-audio --audio-format mp3 -o 'storage/downloads/%(extractor)s/%(uploader)s - %(title).200s.%(ext)s' $url
+fi
